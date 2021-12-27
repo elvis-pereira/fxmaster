@@ -1,6 +1,7 @@
 import copy from "@guanghechen/rollup-plugin-copy";
 import sourcemaps from "rollup-plugin-sourcemaps";
 import styles from "rollup-plugin-styles";
+import { string } from "rollup-plugin-string";
 import { terser } from "rollup-plugin-terser";
 
 import { distDirectory, name, sourceDirectory } from "./tools/const.mjs";
@@ -26,6 +27,9 @@ const config = {
       url: false,
       sourceMap: true,
       minimize: isProduction,
+    }),
+    string({
+      include: [`${sourceDirectory}/**/*.frag`, `${sourceDirectory}/**/*.vert`],
     }),
     copy({
       targets: [{ src: staticFiles.map((file) => `${sourceDirectory}/${file}`), dest: distDirectory }],
